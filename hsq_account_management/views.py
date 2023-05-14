@@ -27,6 +27,10 @@ def send_mail_code(request):
     if(request.method=="GET"):
         return HttpResponse("不可访问")
     else:
+        registerform = RegisterForm(request.POST)
+        if "email" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['email'][0]['message'])
+            return render(request, "main_register.html")
         mail.send_mail(
             subject='验证码',  # 题目
             message='1111',  # 消息内容
@@ -41,9 +45,6 @@ def register_succeed(request):
     else:
         flag=0
         registerform = RegisterForm(request.POST)
-        if "email" in registerform.errors.get_json_data():
-            messages.error(request, registerform.errors.get_json_data()['email'][0]['message'])
-            flag=1
         if "password" in registerform.errors.get_json_data():
             messages.error(request, registerform.errors.get_json_data()['password'][0]['message'])
             flag=1
@@ -53,7 +54,7 @@ def register_succeed(request):
         if "mail_code" in registerform.errors.get_json_data():
             messages.error(request, registerform.errors.get_json_data()['mail_code'][0]['message'])
             flag=1
-        if flag==1:
+        if flag==0:
             messages.error(request,"注册成功")
         return  render(request,"main_register.html")
 
