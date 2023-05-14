@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    <h1>智能简历解析系统</h1>
+    <label></label>
+    <form method="post" action="/">
+    {% csrf_token %}
+    账号:<br>
+     <label><input type="text" name="account" value=""></label>
+    <br>
+    密码:<br>
+    <label><input type="text" name="password" value=""></label>
+    <br><br>
+    <input type="submit" value="提交">
+    </form>
+
+    <form method="post" action="/register/">
+            {% csrf_token %}
+            <p><input type="submit" value="注册"/></p>
+    </form>
+
+    <img src="" alt="">
+</body>
+</html>

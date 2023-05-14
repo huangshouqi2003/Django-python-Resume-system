@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+    <h1>注册界面</h1>
+    <form  method="post" action="/send_mail_code/">
+         {% csrf_token %}
+        请输入邮箱:<br>
+        <label><input  type="text" name="mail" value=""></label>
+        <input  type="submit" value="发送验证码">
+        <br>
+        请输入验证码:<br>
+        <label><input  type="text" name="mail_code" value=""></label>
+
+        {% if messages %}
+        <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+        </script>
+        {% endif %}
+    </form>
+
+    <label></label>
+    <form id="f1" method="post" action="/register/">
+    {% csrf_token %}
+    请输入账号:<br>
+     <label><input form="f1" type="text" name="account" value=""></label>
+    <br>
+    请输入密码:<br>
+    <label><input form="f1" type="text" name="password" value=""></label>
+    <br>
+    请再次输入密码:<br>
+    <label><input form="f1" type="text" name="repassword" value=""></label>
+    <br>
+    <br><br>
+    <input form="f1" type="submit" value="提交注册">
+    </form>
+    <img src="" alt="">
+</body>
+</html>
