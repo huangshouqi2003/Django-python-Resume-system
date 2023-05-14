@@ -2,12 +2,14 @@ from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
 from django.core import mail
 from django.contrib import messages
+from forms import MuneForm
 
 # Create your views here.
 def index(request):
     if request.method=="GET":
         return render(request,"main_mune.html")
     else:
+        userkk=MuneForm(request.POST)
         return  HttpResponse("登录成功")
 def register(request):
     if request.method=="GET":
