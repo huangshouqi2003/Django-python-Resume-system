@@ -9,15 +9,14 @@
     <label></label>
     <form method="post" action="/">
     {% csrf_token %}
-    账号:<br>
-     <label><input type="text" name="account" value=""></label>
+    邮箱:<br>
+     <label><input type="text" name="email" value=""></label>
     <br>
     密码:<br>
     <label><input type="text" name="password" value=""></label>
     <br><br>
-    <input type="submit" value="提交">
+    <input type="submit" value="登录">
     </form>
-
     <form method="post" action="/register/">
             {% csrf_token %}
             <p><input type="submit" value="注册"/></p>
