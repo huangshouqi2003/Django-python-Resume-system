@@ -11,22 +11,14 @@
         请输入邮箱:<br>
         <label><input  type="text" name="email" value=""></label>
         <input  type="submit" value="发送验证码">
-        <br>
-        请输入验证码:<br>
-        <label><input  type="text" name="email_code" value=""></label>
-
-        {% if messages %}
-        <script>
-        {% for msg in messages %}
-            alert('{{ msg.message }}');
-        {% endfor %}
-        </script>
-        {% endif %}
     </form>
 
     <label></label>
-    <form id="f1" method="post" action="/register/">
+    <form id="f1" method="post" action="/register_succeed/">
     {% csrf_token %}
+    请输入验证码:<br>
+    <label><input form="f1"  type="text" name="email_code" value=""></label>
+    <br>
     请输入密码:<br>
     <label><input form="f1" type="text" name="password" value=""></label>
     <br>
@@ -36,6 +28,13 @@
     <br><br>
     <input form="f1" type="submit" value="提交注册">
     </form>
+    {% if messages %}
+        <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+        </script>
+        {% endif %}
     <img src="" alt="">
 </body>
 </html>

@@ -2,21 +2,21 @@ from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
 from django.core import mail
 from django.contrib import messages
-from hsq_account_management.forms import MuneForm
+from hsq_account_management.forms import MuneForm,RegisterForm
 import json
 # Create your views here.
 def index(request):
     if request.method=="GET":
         return render(request,"main_mune.html")
     else:
-        userkk=MuneForm(request.POST)
-        if userkk.is_valid():
+        muneform=MuneForm(request.POST)
+        if muneform.is_valid():
             return  HttpResponse("登录成功")
         else:
-            if "email" in userkk.errors.get_json_data():
-                messages.error(request, userkk.errors.get_json_data()['email'][0]['message'])
-            if "password" in userkk.errors.get_json_data():
-                messages.error(request, userkk.errors.get_json_data()['password'][0]['message'])
+            if "email" in muneform.errors.get_json_data():
+                messages.error(request, muneform.errors.get_json_data()['email'][0]['message'])
+            if "password" in muneform.errors.get_json_data():
+                messages.error(request, muneform.errors.get_json_data()['password'][0]['message'])
             return render(request,"main_mune.html")
 def register(request):
     if request.method=="GET":
@@ -35,4 +35,25 @@ def send_mail_code(request):
         )
         messages.error(request,"已经发送，请注意查收")
         return render(request,"main_register.html")
+def register_succeed(request):
+    if request.method=="GET":
+        return HttpResponse("不可访问")
+    else:
+        flag=0
+        registerform = RegisterForm(request.POST)
+        if "email" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['email'][0]['message'])
+            flag=1
+        if "password" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['password'][0]['message'])
+            flag=1
+        if "repassword" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['repassword'][0]['message'])
+            flag=1
+        if "mail_code" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['mail_code'][0]['message'])
+            flag=1
+        if flag==1:
+            messages.error(request,"注册成功")
+        return  render(request,"main_register.html")
 

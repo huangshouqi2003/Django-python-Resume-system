@@ -21,5 +21,7 @@ from hsq_account_management import views
 urlpatterns = [
     path('register/', views.register),
     path('', views.index),
-    path('send_mail_code/',views.send_mail_code)
+    path('send_mail_code/',views.send_mail_code),
+    path('register_succeed/', views.register_succeed),
+
 ]
