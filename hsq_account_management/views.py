@@ -59,7 +59,7 @@ def register_succeed(request):
             messages.error(request, registerform.errors.get_json_data()['mail_code'][0]['message'])
             flag=1
         if flag==0:
-            userinfo.objects.create(account=request.POST.get(""))
+            userinfo.objects.create(account=request.POST.get("email"),password=request.POST.get("password"))
             messages.error(request,"注册成功")
         return  render(request,"main_register.html")
 
