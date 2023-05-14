@@ -6,16 +6,16 @@
 </head>
 <body>
     <h1>注册界面</h1>
-    <form  method="post" action="/send_mail_code/">
-         {% csrf_token %}
-        请输入邮箱:<br>
-        <label><input  type="text" name="email" value=""></label>
-        <input  type="submit" value="发送验证码">
-    </form>
+
 
     <label></label>
     <form id="f1" method="post" action="/register_succeed/">
     {% csrf_token %}
+    请输入邮箱:<br>
+        <label><input form="f1" type="text" name="email" value=""></label>
+
+        <input  type="submit"  formaction="/send_mail_code/" value="发送验证码">
+        <br>
     请输入验证码:<br>
     <label><input form="f1"  type="text" name="mail_code" value=""></label>
     <br>

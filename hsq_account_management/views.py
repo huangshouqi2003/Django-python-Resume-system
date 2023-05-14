@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.core import mail
 from django.contrib import messages
 from hsq_account_management.forms import MuneForm,RegisterForm
+from hsq_account_management.models import userinfo
 import json
 # Create your views here.
 def index(request):
@@ -45,6 +46,9 @@ def register_succeed(request):
     else:
         flag=0
         registerform = RegisterForm(request.POST)
+        if "email" in registerform.errors.get_json_data():
+            messages.error(request, registerform.errors.get_json_data()['email'][0]['message'])
+            flag = 1
         if "password" in registerform.errors.get_json_data():
             messages.error(request, registerform.errors.get_json_data()['password'][0]['message'])
             flag=1
@@ -55,6 +59,7 @@ def register_succeed(request):
             messages.error(request, registerform.errors.get_json_data()['mail_code'][0]['message'])
             flag=1
         if flag==0:
+            userinfo.objects.create(account=request.POST.get(""))
             messages.error(request,"注册成功")
         return  render(request,"main_register.html")
 
