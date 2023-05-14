@@ -35,7 +35,7 @@ def send_mail_code(request):
             subject='验证码',  # 题目
             message='1111',  # 消息内容
             from_email='2245059994@qq.com',  # 发送者[当前配置邮箱]
-            recipient_list=[request.POST.get('mail')],  # 接收者邮件列表
+            recipient_list=[request.POST.get('email')],  # 接收者邮件列表
         )
         messages.error(request,"已经发送，请注意查收")
         return render(request,"main_register.html")
