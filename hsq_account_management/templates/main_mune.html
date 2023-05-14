@@ -22,6 +22,14 @@
             <p><input type="submit" value="注册"/></p>
     </form>
 
+    {% if messages %}
+        <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+        </script>
+        {% endif %}
+
     <img src="" alt="">
 </body>
 </html>

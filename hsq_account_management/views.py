@@ -13,9 +13,11 @@ def index(request):
         if userkk.is_valid():
             return  HttpResponse("登录成功")
         else:
-            jj=userkk.errors.get_json_data()
-            print(jj['email'][0]['message'])
-            return HttpResponse(jj)
+            if "email" in userkk.errors.get_json_data():
+                messages.error(request, userkk.errors.get_json_data()['email'][0]['message'])
+            if "password" in userkk.errors.get_json_data():
+                messages.error(request, userkk.errors.get_json_data()['password'][0]['message'])
+            return render(request,"main_mune.html")
 def register(request):
     if request.method=="GET":
         return HttpResponse("不可访问")
