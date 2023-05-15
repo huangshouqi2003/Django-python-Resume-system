@@ -12,7 +12,12 @@ def index(request):
     else:
         muneform=MuneForm(request.POST)
         if muneform.is_valid():
-            return  HttpResponse("登录成功")
+            data_list = userinfo.objects.all()
+            for obj in data_list:
+                if (obj.account == request.POST.get("email")
+                        and obj.password==request.POST.get("password")):
+                    return HttpResponse("登录成功")
+            return HttpResponse("邮箱或密码有错，忘记密码请联系管理员")
         else:
             if "email" in muneform.errors.get_json_data():
                 messages.error(request, muneform.errors.get_json_data()['email'][0]['message'])
@@ -59,6 +64,10 @@ def register_succeed(request):
             messages.error(request, registerform.errors.get_json_data()['mail_code'][0]['message'])
             flag=1
         if flag==0:
+            data_list=userinfo.objects.all()
+            for obj in data_list:
+                if(obj.account==request.POST.get("email")):
+                    return HttpResponse("邮箱有重复，忘记找管理员")
             userinfo.objects.create(account=request.POST.get("email"),password=request.POST.get("password"))
             messages.error(request,"注册成功")
         return  render(request,"main_register.html")
